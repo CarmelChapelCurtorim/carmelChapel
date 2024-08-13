@@ -4,9 +4,15 @@ import Logo from '@/images/transparentLogo.png';
 import Image from "next/image";
 import { useState } from 'react';
 import BookIcon from '@/images/book.png'
+import VideoModal from '@/components/VideoModal';
 
 export default function Home() {
   const [readToggle, setReadToggle] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+
+  const handleVideoEnd = () => {
+    setIsOpen(false);
+  };
 
   const toggleTruncation = () => {
     setReadToggle(!readToggle);
@@ -14,7 +20,11 @@ export default function Home() {
 
   return (
     <main className=" bg-white">
-      <Hero />
+      {/* Pass the isOpen state to Hero to control video play */}
+      <Hero isOpen={isOpen} />
+
+      {/* Show VideoModal and handle close event */}
+      {isOpen && <VideoModal isOpen={isOpen} handleVideoEnd={handleVideoEnd} />}
 
       <div className="relative about bg-[#80011F] p-4 py-10">
         <h3 className='Abril-Regular text-5xl text-center absolute bg-[#80011F] inset-x-1/4 top-5 px-4'>ABOUT</h3>
